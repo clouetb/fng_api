@@ -1,7 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 
-def getIdentity(nameset=["us"], country=["us"], gender="50", minage="19", maxage="85"):
+def getIdentity(nameset=["us"], country=["us"], gender="50", minage="19", maxage="85", proxies=None):
 	
 	namesets = ['us', 'ar', 'au', 'br', 'celat', 'ch', 'zhtw', 'hr', 'cs', 'dk', 'nl', 'en', 'er', 'fi', 'fr', 'gr', 'gl', 'sp', 'hobbit', 'hu', 'is', 'ig', 'it', 'jpja', 'tlh', 'ninja', 'no', 'fa', 'pl', 'ru', 'rucyr', 'gd', 'sl', 'sw', 'th', 'vn']
 
@@ -51,7 +51,8 @@ def getIdentity(nameset=["us"], country=["us"], gender="50", minage="19", maxage
 	url = url + "&age-max=" + maxage
 	
 	#get data
-	soup = BeautifulSoup(requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}).text, "html.parser")
+	soup = BeautifulSoup(requests.get(url, headers={'User-Agent': 'Mozilla/5.0'}, proxies=proxies).text, 
+						"html.parser")
 
 	name = soup.find("h3").text
 	fullAddress = soup.find("div", class_="adr").contents
